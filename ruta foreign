@@ -1,0 +1,8 @@
+
+##########importando una base de datos################
+###usando foreign
+install.packages("foreign")
+require (foreign)
+library(foreign)
+sociodemo <- read.dbf("C://Users//SALA-C1//Downloads//base//SDEMT215.dbf")
+table(sociodemo$SEX)
