@@ -1,0 +1,25 @@
+sample(10000,35)
+help(sample)
+###Creando una pequeña base de datos#########
+#con 4 variables (nombre,edad,sexo,educación)#
+#creando 4 vectores con 8 alumnos seleccionados al azar
+nombres <- c("sergio","alan","betzabeth","judith","rodrigo","eric","diego","angel")
+edad <- c("36","20","23","20","21","21","22","21")
+sexo <- c("hombre","hombre","mujer","mujer","hombre","hombre","hombre","hombre")
+educa <- c("publica","publica","publica","privada","publica","publica","publica","publica")
+##generamos una base en forma de matriz
+base1<-Matrix(edad,nombres,sexo,educa)
+help(matrix)
+####creando una base con la funcion data frame que conjunta a los vectores
+base1.1 <-data.frame(edad,nombres,sexo,educa)
+#ahora con la base de datos vamos usar la funcion table
+#Esta funcion sirve paera conocer la frecuencia de las diferentes variables
+table(base1.1$edad)
+table(base1.1$sexo)
+#con la funcion attach me redirige a la base sin poner toda la ruta
+attach(base1.1)
+table(edad)
+#con la funcion detach deja de reconocer la base
+detach (base1.1)
+#con la funcion summary hace un resumen de la variable
+summary (base1.1$edad)
