@@ -1,0 +1,26 @@
+setwd("C://Users//SALA-E4//Documents//base")
+require(foreign)
+sdemt215<-data.frame(read.dbf("SDEMT215.dbf"))
+install.packages("questionr")
+require(questionr)
+#CS_P12
+wtd.table(sdemt215$CS_P12)
+sdemt215$sabe_leer_y_escribir_un_recado<-factor(sdemt215$CS_P12,levels = c(1,2,9),labels = c("si","no","no sabe"))
+wtd.table(sdemt215$sabe_leer_y_escribir_un_recado)
+#CS_P13_1
+wtd.table(sdemt215$CS_P13_1)
+sdemt215$hasta_que_grado_aprobo_en_la_escuela<-factor(sdemt215$CS_P13_1,levels = c(00,01,02,03,04,05,06,07,08,09,99),labels = c("ninguno","preescolar","primaria","secundaria","bachillerato o preparatoria","normal","carrera tecnica","profesional","maestria","doctorado","no sabe"))
+wtd.table(sdemt215$hasta_que_grado_aprobo_en_la_escuela)
+#CS_P15
+wtd.table(sdemt215$CS_P15)
+sdemt215$que_estudios_le_pidieron_para_ingresar_a_la_carrera <- factor(sdemt215$CS_P15 ,levels = c(1,2,3,9),labels = c("primaria", "secundaria","preparatoria","no sabe"))
+wtd.table(sdemt215$que_estudios_le_pidieron_para_ingresar_a_la_carrera)
+#CS_P16
+wtd.table(sdemt215$CS_P16)
+sdemt215$termino_las_materias_de_esta_carrera <- factor(sdemt215$CS_P16 ,levels = c(1,2,9),labels = c("si", "no","no sabe"))
+wtd.table(sdemt215$termino_las_materias_de_esta_carrera)
+#CS_P17
+wtd.table(sdemt215$CS_P17)
+sdemt215$asiste_actualmente_a_la_escuela <- factor(sdemt215$CS_P17 ,levels = c(1,2,9),labels = c("si", "no","no sabe"))
+wtd.table(sdemt215$asiste_actualmente_a_la_escuela)
+View(sdemt215)
