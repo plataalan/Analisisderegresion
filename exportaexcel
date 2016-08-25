@@ -1,0 +1,8 @@
+install.packages("XLconnect")
+require(XLconnect)
+wb <- loadworkbook("c:/users/sala-c19/desktop/practica.xls",create=TRUE)
+createsheet(wb,name="sexo")
+writeworksheet(wb,tabla1,"sexo",starRow=1, starCol=2, header=TRUE)
+createsheet(wb,name="COND.DE OCUP")
+writeworksheet(wb,tabla2,"COND.DE OCUP",startRow=1,startCol=2,header=TRUE)
+create(wb,name="poblacion activa")
