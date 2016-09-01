@@ -1,0 +1,31 @@
+##estaturas 1.2 , 1.23, 1.19, 1.32 1.28, 1.22, 1.17, 1.29, 1.33, 1.15
+###nivel ecomc 110, 130, 108, 167, 156,115, 104, 138,170,107
+estat<- c(1.2 , 1.23, 1.19, 1.32, 1.28, 1.22, 1.17, 1.29, 1.33, 1.15)
+econ <- c(110, 130, 108, 167, 156,115, 104, 138,170,107)
+plot (econ, estat, pch=11, xlab = "ingreso economico", 
+      ylab = "estatura", main = "grafica de dispersion",col=blues9)
+#####primer paso grafica de disersion para ver si se ajusta una recta
+####el segundo paso es ver las correlaciones
+####para calcular el coeficiente de correlacion se utiliza a funcion cor()
+help (cor)
+#####la forma general de esta funcion es:
+#####1. variable dependiente 2. variale independiente 3. metodo de correlacion
+cor(estat,econ,method="pearson")
+#### una vez que tenemos la idea que hay una buena relacion
+#####para realizar una prueba de correlacion existe una funcion
+#####la prueba de hipotesis para esta funcion H0=r=0
+cor.test(estat,econ,method="pearson")
+###si el p- value es menor a .05 recazamos H0
+###por lo que existe relacion
+##ya que confirmamos la correlacion aplicamos el modelo
+#para aplicar el odelo palicamos la fucion lm()
+model <- lm (estat~econ)
+summary (model)
+#####s residuales nos generan las diferencias entre los valores reales  ajustados
+####en los resltados tenemos los coeficientes que contienen
+####que expone si los coef son significativos
+######el abline nos da la recta ajustada al modelo
+abline (model)
+###con esto podriamos decir que tenemos una ecuacion
+#### estat=.9323 +.0023 econ
+
