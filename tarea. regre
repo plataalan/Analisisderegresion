@@ -1,0 +1,24 @@
+alifx<- c(39,43,21,64,57,47,28,75,34,52)
+calify <-c(65,78,52,82,92,89,73,98,56,75)
+xcuadra <- califx *califx
+xpory <- calify*califx
+ycuadra <- calify*calify
+xprom <- mean(califx)
+yprom <- mean (calify)
+sxyi<- califx-xprom
+sxii<- calify-yprom
+sxy <- sxyi* sxii 
+sxyreal<-sum (sxy)
+sxxi <- sxyi*sxyi
+sxx<- sum(sxxi)
+bi <- sxyreal/sxx
+bo <- yprom -bi*xprom
+plot (califx, calify, pch=11, xlab = "calif ingreso", 
+        ylab = "calif. 1er semestre", main = "grafica de dispersion",col=blues9)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  cor(calify,califx,method="pearson")
+cor.test(calify,califx,method="pearson")
+### se rechaza h0 ya que -value = .002365, existe relacion
+model <- lm (calify~califx)
+summary (model)
+abline (model)
