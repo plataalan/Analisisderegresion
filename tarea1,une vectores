@@ -1,0 +1,20 @@
+########Se plantea una regresion simple para ver si exite alguna entre el
+#####aumento en los precios de la gasolina y aumento en la inflacion
+##### se hace con los ultimos presidentes, esperando enocntrar
+#####una justificacion en la inflacion para los aumentos en la gasolina
+presiden<- c("1934-1940 Lázaro Cárdenas del Río", "1940-1946 Manuel Ávila Camacho",
+             "1946-1952 Miguel Alemán Valdés","1952-1958 Adolfo Ruíz Cortines","1958-1964 Adolfo López Mateos",
+             "1964-1970 Gustavo Díaz Ordaz","1970-1976 Luis Echeverría Álvarez","1976-1982 José López Portillo y Pacheco",
+             "1982-1988 Miguel de la Madrid Hurtado","1988-1994 Carlos Salinas de Gortari", "1994-2000 Ernesto Zedillo Ponce de León",
+             "2000-2006 Vicente Fox Quesada","2006-2012 Felipe Calderon Hinojosa" )
+porcentgas <- c(27.78,30.43,33.33,37.50,0,0,445.45,900,1810,135.6,290.37,27.89,60.39)
+porcentinfla<-c(36.67,131.71,47.29,44.81,13.76,17.76,129.60,458.96,3710.07,139.12,225.98,29.78,28.51)
+tabla = data.frame (cbind(presiden,porcentgas,porcentinfla))
+plot (porcentgas, porcentinfla, pch=11, xlab = "aumento gasolina", 
+           ylab = "aumento inflacion", main = "porcentajes de aunmento gasolina-inflacion",col=blues9)
+cor(porcentgas,porcentinfla,method="pearson")
+cor.test(porcentgas,porcentinfla,method="pearson")
+##p value es menor .05 existe relacion
+model <- lm (porcentgas~porcentinfla)
+summary (model)
+abline (model)
