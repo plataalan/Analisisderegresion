@@ -1,0 +1,24 @@
+######################## para obener los coeficietes
+summary(model)$coefficients
+#####la representacion seria que por cada peso de ingreso aumenta a estatura en .0203
+##para calcular el intervalo de confanza
+confint(model,level = .95)
+####nos dice que cae entre .007 y .0029
+##Bondad de ajuste
+###verifca calidad del modelo
+##usamos tabla ANOVA
+anova(model)
+###En este caso la variabilidad explicada del modelo .033022=ssm
+### se revisa la ssr=.0031
+####revisando los vaores de sumar esadistico
+# f es mayor a 1 y p- value <.05
+#####con estas revisiones se puede mencionar que se rechaza
+##la hipotesis nula de f=1
+### y se puede establecer un modelo
+###revisar R2 multiple
+#al rededor del 91% de la variabilidad de la estatura
+###es exlicada co la recta ajustada
+##########supuestos#################################################################
+base <- data.frame(econ, estat)
+base$fitted.model <- fitted(model)
+base.residuals.model
