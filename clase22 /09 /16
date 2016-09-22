@@ -1,0 +1,43 @@
+install.packages("car")
+require (car)
+base1<- data.frame(econ,estat)
+base1$ajuste.model<-fitted(model)#valores ajustados es Y(gorrito)
+base1$residuales.model<-residuals(model)##residuos del modelo es Y-ý=eí
+base1$rsudent.model <- rstudent(model) #residuos estudentizados
+shapiro.test(base1$rstudent.model)
+###tenemos un vaue de .8172 no se rechaza la hipotesis
+qqnorm(base1$rstudent.model, main="normal (0,1)")
+install.packages("lmtest")
+require (lmtest)
+bptest(model)
+####en esta prueba esperamos que haya homogeniedad de la varianza
+#ho si hay homogeniedad
+#h1 o hay homegeniedad en la varianza
+###e la prueba bptest obtenemos un p value de .6108
+##por lo tant se rechaza la hipotesis nula
+###es decr acepta un 95% de confianza la h0
+#para eso debemos tener un pvalue mayor de .05
+##############################################
+####prueba de autocorrelacion o autoindependencia
+###en este caso se utiliza durbin watson
+require (car)
+dwtest(model,alternative = "two.sided")
+###H0  no hay una correlacion en los residuos
+##si hay autocorrelacion de los residuos
+#####la prueba durbin watson genera un resultado de p vae .9142
+####3##por lo que no se rechza la hipotesis nula
+###tenemos un p value mayor a .05, o hay autocorrelacion de residuos
+####si durbin watson es6ta en el rango de 1.5 a 2.4 no cor de residuos
+####ahora comproaremos esto de manera grafica
+plot(base1$residuales.model,pch=07, ylab = "residuales",xlab = "in")
+abline(h=cor(base1$estat,base1$econ))
+####en este caso no hay patron
+###por o que confirmamos que no hay relacion
+###definimos limites
+limbase1 <- seq(min(base1$econ), max(base1$econ),length=10)
+limbase1<- data.frame(limbase1)
+limbasep <- predict.lm(model,limbase1,interval = "prediction",se.fit =TRUE,data=base1)
+head(limbasep$fit)###se generan limites
+####para dibujar los limites
+matplot (limbase1, limbasep$fit, type="l", xlab = "ingresos",ylab = "estatura")
+####tarea etiquetar datos
