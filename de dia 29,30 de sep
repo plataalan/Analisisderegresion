@@ -1,0 +1,84 @@
+#### modelo
+####################regresion
+#############multiple
+capa<- c(4330,5500,5500,4700,5200,5500,4700,5500,5800,5000)
+calidad <- c(2,3,4,3,4,4,4,5,5,5)
+precio <- c(190,219,249,249,250,340,289,395,439,525)##dependiente
+mochil <- data.frame(precio,capa,calidad)
+####primero aplicamos una correlacion
+cor(mochil,use="everything",method="pearson")
+###observamos que las variables tienen correlacion diversa
+###aplicamos modeo
+modmo<- lm(precio~calidad+capa)
+summary(modmo)
+#########se rercisa la R2 ajustada por ser mRM una
+####r2 ajustada de .70 lo que implica que la recta de regresion
+####explica en 70% la variabilidad del modelo
+###revisando el valor y el p value tenemos que si cumple con
+####los criterios de un buen ajuste F>1 y pvalue <.05
+####tenemos un buen modelo por lo que se pasa al diagnostico
+##lo primero que se hace es un mr es observar graficamente los suspuestos
+####se contrastan los valores residuales con los ajustados
+#### se realiza la funcion plot y el argumento wich=1
+###pch la figura
+######supuesto de normalidad
+plot(modmo, which = 1,pch=10)
+####en este caso esperamos que los residuos
+###tipificados alrededor de la linea
+###se observa que si hay distribucio normal
+####tercer supuesto
+plot(modmo,wich=3, pch=10)
+####los residuos estandarizados
+###por su desvaciones estandar
+#####cuarto supuesto
+plot(modmo, which=5, pch=3)
+###expone la importancia de cada observacion del modelo
+##obsrvaciones que podrian impactar el modelo
+#######quitar renglones -1,-7,-10 0 columnas
+mochil1<- mochil[c(-1,-7,-10),]
+####primerro aplicamos una correlacion
+######despues que analizas graficamente se aplican pruabas para confirmar
+###que el mrm si cumple con los supuestos
+###para aplicar estas pruebas se generan valores ajustados
+###residuales y estandarizados
+####y paramtetro son los ajustados
+mochil$ajustados <- fitted(modmo)
+mochil$res <- residuals(modmo)
+####buscamos residuales cercanos a cero
+mochil$rstud <- rstudent (modmo)
+require(lmtest)
+ks.test (mochil$rstud,"pnorm")
+####se plantea una prueba der hipotesis
+#y se espera que p value mayor a .05
+##no se rechaza la H y se acepta que hay normalidad
+##la segunda prueba es la homogeniedad de las varianzas
+bptest(modmo,studentize = FALSE,data=mochil)
+##tenemos un p value mayor a .05
+##3por tanto pasa la prueba de homogeneidad
+###la prueba durbn watson nos ayuda en la autocorrelacion
+dwtest(modmo,alternative="two.sided",data=mochil)
+#####Hay dos formas
+## p value mayo a .05
+###el valor de durbin watson(rango aceptable 1.5 a 2.5)
+##hasta aqui se confirma que no hay correlacion entre los residuos
+###ya tenemos un modelo con buen ajuste, sin embarg hay que revisar los casos atipicos
+require (car)
+outlierTest (modmo)##no
+outlier.test (modmo)##no
+####a  una vez conocidos los casos atipicos
+###procedemos a conocer la influencia de estos casos en el modelo de 
+##observar la influencia que se utiliza
+influ <- influence.measures(modmo)
+summary (influ)
+###en la primer columna se observan los casos con
+##mayor influencia en este caso 1 , 2 y 10
+#####la influencia de los coeficientes e el modeo
+##cook.d y hat que nos exponen con maypr claridad
+###la nfluencia del cook.d es la distancia
+influencePlot(modmo) ###libreria car
+install.packages("faraway")
+require (faraway)
+cooks.distance(modmo)
+dc <- cooks.distance(modmo)
+etiqueta <- rownames(mochil)
+halfnorm(dc,3,etiqueta)
