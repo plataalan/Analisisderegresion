@@ -1,0 +1,39 @@
+#comparacion de tres modelos
+#precio-calidad
+#precio capacidad
+#precio- capacidad+capacidad
+plot(calidad,precio,pch=10, xlab="capa",
+     ylab="precio", main="grafica de dispersion", col="blue")
+cor(precio,calidad,method="pearson")
+cor.test(precio,calidad,method="pearson")
+#####comparacion de modelos
+##preendemos seleccoar al mejor subconjuntos de var ndependientes
+###en este caso para la plicacion de mrm tenmos 2 variables
+##ndependientes (calidad y capacidad) por lo que
+#se propone el principio de parsimonia, conocer variables indep inecesarias
+##evitar muloticolinialidad, es decir muchas variables intentando explicar el modelo
+####¿como se seleccciona el mejor modelo?
+##criterio de inforacion arkaike(AIC) es un valor
+##e problema de utilizar R cuadrada para comparar modelos es que
+###al introducir nuevas variables, esta medida siempre crece
+####AIC= nlog(SCR/n)+2k
+##scr sma de cudrads residuales
+#k es el numero de variables independientes
+##si AIC> modelo es peor
+#######metodo step by step para coparar modelos
+##forward, blackward, both
+###forward parte del coefciente Bo y de ah va probando las variables
+##indep para ver cual se aparta a modelo
+##backward R empieza cn todas las var indep y estdia  el AIC
+###baja cuando hay caios de variabl
+##el both comienza como el forwar la diferencia es que realiza el test para conocer el var indep mens util
+###el metodo más recomendae es e bacward porque tiee un efeco represor
+##qe permite probar cuando una var tiene nfluencia
+moch<- data.frame(precio,capa,calidad)
+cor(moch,use="everything",method="pearson")
+model<- lm(precio~capa+calidad,data=moch)
+step(model,direction="backward")
+###con both
+step(model,direction="both")
+###con forward
+step(model,direction="forward")
