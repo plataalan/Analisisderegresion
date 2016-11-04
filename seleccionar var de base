@@ -1,0 +1,8 @@
+setwd("/Users/sala-c10/Desktop")
+install.packages("foreign")
+require(foreign)
+mti2013<- data.frame(read.dbf("mti2013_hogar_precodificado.dbf"))
+#####poblacion objetivo son ocupados y zonas rurales
+mti2013v1 <- subset(mti2013, mti2013$CLASE2==1 & mti2013$T_LOC==4)
+require(questionr)
+wtd.table (mti2013v1$SEX, weights=mti2013v1$FAC_MTI)
