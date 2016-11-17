@@ -1,0 +1,13 @@
+library(foreign)
+install.packages("questionr")
+require (questionr)
+file.choose()
+dataset = read.spss("C:\\Users\\SALA-C18\\Desktop\\solorural.sav", to.data.frame=TRUE)
+newdata <- subset(dataset, eda >= 5 & eda < 17)
+newdata0 <- subset(newdata, pos_ocu >= 1 & pos_ocu <  5)
+porcent <- 1419/18100*100
+##porcentaje de ocupados 7.8397
+newdata01 <- subset(newdata0, eda>5 & eda <=9)
+###tamaño poblacion
+wtd.table(dataset$sex=="hombres" & dataset$eda, weights=dataset&fac_mti)
+wtd.table(dataset$sex=="mujeres" & dataset$eda, weights=dataset&fac_mti)
